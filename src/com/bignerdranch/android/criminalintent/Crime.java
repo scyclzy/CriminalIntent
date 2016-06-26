@@ -3,6 +3,8 @@ package com.bignerdranch.android.criminalintent;
 import java.util.Date;
 import java.util.UUID;
 
+import android.text.format.Time;
+
 public class Crime {
 	
 	private UUID mId;

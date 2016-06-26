@@ -3,6 +3,7 @@ package com.bignerdranch.android.criminalintent;
 import java.util.Date;
 import java.util.UUID;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,11 +27,13 @@ public class CrimeFragment extends Fragment {
 			"com.bignerdranch.android.criminalintent.crime_id";
 	
 	private static final String DIALOG_DATE = "date";
+	private static final String DIALOG_TIME = "time";
 	private static final int REQUEST_DATE = 0;
 	
 	private Crime mCrime;
 	private EditText mTitleField;
 	private Button mDateButton;
+	private Button mTimeButton;
 	private CheckBox mSolvedCheckBox;
 	
 	public static CrimeFragment newInstance(UUID crimeId) {
@@ -52,6 +55,11 @@ public class CrimeFragment extends Fragment {
 	public void updateDate() {
 		String formatedDate = DateFormat.format("EEEE, MMM d, yyyy", mCrime.getDate()).toString();
 		mDateButton.setText(formatedDate);
+	}
+	
+	public void updateTime() {
+		String formateCrimeTime = DateFormat.format("HH:mm", mCrime.getDate()).toString();
+		mTimeButton.setText(formateCrimeTime);
 	}
 	
 	@Override
@@ -88,6 +96,19 @@ public class CrimeFragment extends Fragment {
 						.newInstance(mCrime.getDate());
 				dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
 				dialog.show(fm, DIALOG_DATE);
+			}
+		});
+		
+		mTimeButton = (Button)v.findViewById(R.id.crime_time);
+		updateTime();
+		mTimeButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FragmentManager fm = getActivity()
+						.getSupportFragmentManager();
+				TimePickerFragment dialog = TimePickerFragment.newInstance();
+				dialog.show(fm, DIALOG_TIME);				
 			}
 		});
 		
