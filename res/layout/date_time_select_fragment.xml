@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dateTimeChooseRadioGroup"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <RadioButton
+        android:id="@+id/crimeDateRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/crime_date_radiobutton_label" />
+
+    <RadioButton
+        android:id="@+id/crimeTimeRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/crime_time_radiobutton_label" />
+
+</RadioGroup>

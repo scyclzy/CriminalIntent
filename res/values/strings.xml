@@ -6,9 +6,13 @@
     <string name="crime_title_hint">Enter a title for the crime.</string>
     <string name="crime_title_label">Title</string>
     <string name="crime_details_label">Details</string>
-    <string name="crime_solved_labed">Solved?</string>
+    <string name="crime_solved_label">Solved?</string>
     <string name="crimes_title">Crimes</string>
     <string name="date_picker_title">Date of crime:</string>
     <string name="time_picker_title">Time of crime:</string>
+    <string name="crime_date_radiobutton_label">set crime date</string>
+    <string name="crime_time_radiobutton_label">set crime time</string>
+    <string name="date_time_select_title">Choose which to set</string>
+    <string name="set_timedate_button_label">Set crime date or time</string>
 
 </resources>
