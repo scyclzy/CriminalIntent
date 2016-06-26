@@ -26,10 +26,10 @@ public class CrimeFragment extends Fragment {
 	
 	private static final String DIALOG_DATE = "date";
 	private static final String DIALOG_TIME = "time";
-	private static final String DIALOG_DATETIME_CHOOSE = "date_time_choose";
+	private static final String DIALOG_DATETIME = "date_time_choose";
 	private static final int REQUEST_DATE = 0;
 	private static final int REQUEST_TIME = 1;
-	private static final int REQUEST_DATETIME_CHOOSE = 2;
+	private static final int REQUEST_DATETIME = 2;
 	
 	private Crime mCrime;
 	private EditText mTitleField;
@@ -82,9 +82,9 @@ public class CrimeFragment extends Fragment {
 			public void onClick(View v) {
 				FragmentManager fm = getActivity()
 						.getSupportFragmentManager();
-				DateTimeSelectFragment dialog = new DateTimeSelectFragment();
-				dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATETIME_CHOOSE);
-				dialog.show(fm, DIALOG_DATETIME_CHOOSE);
+				DateTimeSelectFragment dialog = DateTimeSelectFragment.newInstance();
+				dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATETIME);
+				dialog.show(fm, DIALOG_DATETIME);
 			}
 		});
 		
@@ -111,6 +111,22 @@ public class CrimeFragment extends Fragment {
 		} else if (requestCode == REQUEST_TIME) {
 			Date date = (Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
 			mCrime.setDate(date);
+		} else if (requestCode == REQUEST_DATETIME) {
+			int checkedId = data.getIntExtra(
+					DateTimeSelectFragment.EXTRA_CHECKID, R.id.crimeDateRadioButton);
+			FragmentManager fm = getActivity()
+					.getSupportFragmentManager();
+			if (checkedId == R.id.crimeDateRadioButton) {
+				DatePickerFragment datePickerDialog = 
+						DatePickerFragment.newInstance(mCrime.getDate());
+				datePickerDialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+				datePickerDialog.show(fm, DIALOG_DATE);
+			} else if (checkedId == R.id.crimeTimeRadioButton) {
+				TimePickerFragment timePickerDialog = 
+						TimePickerFragment.newInstance(mCrime.getDate());
+				timePickerDialog.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
+				timePickerDialog.show(fm, DIALOG_TIME);
+			}
 		}
 	}
 

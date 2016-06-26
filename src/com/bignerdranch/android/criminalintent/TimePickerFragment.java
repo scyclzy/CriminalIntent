@@ -28,10 +28,6 @@ public class TimePickerFragment extends DialogFragment {
 		return fragment;
 	}
 	
-	private TimePickerFragment() {
-		return ;
-	}
-	
 	private void sendResult(int resultCode) {
 		if (getTargetFragment() == null) {
 			return ;
