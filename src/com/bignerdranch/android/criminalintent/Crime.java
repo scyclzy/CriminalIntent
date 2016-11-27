@@ -39,7 +39,7 @@ public class Crime {
 		json.put(JSON_ID, mId.toString());
 		json.put(JSON_TITLE, mTitle);
 		json.put(JSON_SOLVED, mSolved);
-		json.put(JSON_DATE, mDate.toString());
+		json.put(JSON_DATE, mDate.getTime());
 		
 		return json;
 	}
