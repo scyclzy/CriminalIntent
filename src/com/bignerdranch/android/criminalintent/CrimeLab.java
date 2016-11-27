@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import android.content.Context;
+import android.util.Log;
 
 public class CrimeLab {
 	
@@ -12,9 +13,15 @@ public class CrimeLab {
 	
 	private ArrayList<Crime> mCrimes;
 	
+	private static final String TAG = "CrimeLab";
+	private static final String FILENAME = "crimes.json";
+	
+	private CriminalIntentJSONSerializer mSerializer;
+	
 	private CrimeLab(Context appContext) {
 		mAppContext = appContext;
 		mCrimes = new ArrayList<Crime>();
+		mSerializer = new CriminalIntentJSONSerializer(mAppContext, FILENAME);
 		for(int i=0; i<6; i++) {
 			Crime c = new Crime();
 			c.setTitle("Crime #" + i);
@@ -37,6 +44,17 @@ public class CrimeLab {
 	
 	public ArrayList<Crime> getCrimes() {
 		return mCrimes;
+	}
+	
+	public boolean saveCrimes() {
+		try {
+			mSerializer.saveCrimes(mCrimes);
+			Log.d(TAG, "crimes saved to file");
+			return true;
+		} catch (Exception e) {
+			Log.e(TAG, "Error saving crimes: ", e);
+			return false;
+		}
 	}
 
 	public Crime getCrime(UUID id) {
