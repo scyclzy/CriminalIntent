@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -129,6 +130,23 @@ public class CrimeListFragment extends ListFragment {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		getActivity().getMenuInflater().inflate(R.menu.crime_list_item_context, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+		int position = info.position;
+		CrimeAdapter adapter = (CrimeAdapter)getListAdapter();
+		Crime crime = adapter.getItem(position);
+		
+		switch(item.getItemId()) {
+		case R.id.menu_item_delete_crime:
+			CrimeLab.get(getActivity()).deleteCrime(crime);
+			adapter.notifyDataSetChanged();
+			return true;
+		}
+		
+		return super.onContextItemSelected(item);
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
