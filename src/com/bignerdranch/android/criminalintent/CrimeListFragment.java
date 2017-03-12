@@ -207,14 +207,12 @@ public class CrimeListFragment extends ListFragment {
 
 				@Override
 				public void onDestroyActionMode(ActionMode mode) {
-					// TODO Auto-generated method stub
 					
 				}
 
 				@Override
 				public void onItemCheckedStateChanged(ActionMode mode,
 						int position, long id, boolean checked) {
-					// TODO Auto-generated method stub
 					
 				}
 			});
