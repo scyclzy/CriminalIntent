@@ -1,6 +1,8 @@
 package com.bignerdranch.android.criminalintent;
 
+import android.annotation.TargetApi;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,6 +37,29 @@ public class CrimeCameraFragment extends Fragment {
 		mSurfaceView = (SurfaceView)v.findViewById(R.id.crime_camera_surfaceview);
 		
 		return v;
+	}
+
+	@Override
+	public void onPause() {
+		
+		super.onPause();
+		
+		if(mCamera != null) {
+			mCamera.release();
+			mCamera = null;
+		}
+	}
+
+	@TargetApi(Build.VERSION_CODES.GINGERBREAD) @Override
+	public void onResume() {
+		
+		super.onResume();
+		
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+			mCamera = Camera.open(0);
+		} else {
+			mCamera = Camera.open();
+		}
 	}
 	
 }
