@@ -24,6 +24,8 @@ public class CrimeCameraFragment extends Fragment {
 	
 	private Camera mCamera;
 	private SurfaceView mSurfaceView;
+	
+	private View mProgressContainer;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -31,6 +33,9 @@ public class CrimeCameraFragment extends Fragment {
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		
 		View v = inflater.inflate(R.layout.fragment_crime_camera, container, false);
+		
+		mProgressContainer = (View)v.findViewById(R.id.crime_camera_progressContainer);
+		mProgressContainer.setVisibility(View.INVISIBLE);
 		
 		Button takePictureButton = (Button)v.findViewById(R.id.crime_camera_takePictureButton);
 		takePictureButton.setOnClickListener(new View.OnClickListener() {
