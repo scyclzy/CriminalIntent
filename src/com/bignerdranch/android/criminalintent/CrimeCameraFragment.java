@@ -1,6 +1,7 @@
 package com.bignerdranch.android.criminalintent;
 
 import java.io.IOException;
+import java.util.List;
 
 import android.annotation.TargetApi;
 import android.hardware.Camera;
@@ -76,7 +77,7 @@ public class CrimeCameraFragment extends Fragment {
 				
 				// The surface has changed size; update the camera preview size
 				Camera.Parameters parameters = mCamera.getParameters();
-				Size s = null; // to be reset in the next section
+				Size s = getBestSupportedSize(parameters.getSupportedPreviewSizes(), width, height); 
 				parameters.setPreviewSize(s.width, s.height);
 				mCamera.setParameters(parameters);
 				try {
@@ -115,4 +116,18 @@ public class CrimeCameraFragment extends Fragment {
 		}
 	}
 	
+	private Size getBestSupportedSize(List<Size> sizes, int w, int h) {
+		Size bestSize = sizes.get(0);
+		int largestArea = bestSize.width * bestSize.height;
+		
+		for(Size s : sizes) {
+			int area = s.width * s.height;
+			if(largestArea < area) {
+				bestSize = s;
+				largestArea = area;
+			}
+		}
+		
+		return bestSize;
+	}
 }
