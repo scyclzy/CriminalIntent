@@ -34,6 +34,7 @@ public class CrimeFragment extends Fragment {
 	
 	private static final String DIALOG_DATE = "date";
 	private static final int REQUEST_DATE = 0;
+	private static final int REQUEST_PHOTO = 1;
 	
 	private Crime mCrime;
 	private ImageButton mPhotoButton;
@@ -83,7 +84,7 @@ public class CrimeFragment extends Fragment {
 			public void onClick(View v) {
 				
 				Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
-				startActivity(i);
+				startActivityForResult(i, REQUEST_PHOTO);
 			}
 		});
 		
