@@ -27,6 +27,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class CrimeFragment extends Fragment {
 	
@@ -39,6 +40,7 @@ public class CrimeFragment extends Fragment {
 	private static final int REQUEST_PHOTO = 1;
 	
 	private Crime mCrime;
+	private ImageView mImageView;
 	private ImageButton mPhotoButton;
 	private EditText mTitleField;
 	private Button mDateButton;
@@ -78,6 +80,8 @@ public class CrimeFragment extends Fragment {
 				getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 			}
 		}
+		
+		mImageView = (ImageView)v.findViewById(R.id.crime_imageView);
 		
 		mPhotoButton = (ImageButton)v.findViewById(R.id.crime_imageButton);
 		mPhotoButton.setOnClickListener(new View.OnClickListener() {
