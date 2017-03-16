@@ -107,5 +107,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/crime_suspect_text" />
+        </LinearLayout>
+        
+     </LinearLayout>
 
 </ScrollView>
