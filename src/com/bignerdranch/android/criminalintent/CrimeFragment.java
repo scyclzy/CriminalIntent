@@ -1,12 +1,14 @@
 package com.bignerdranch.android.criminalintent;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
@@ -169,29 +171,31 @@ public class CrimeFragment extends Fragment {
 		});
 		
 		mSuspectButton = (Button)v.findViewById(R.id.crime_suspectButton);
+		final Intent suspectIntent = new Intent(Intent.ACTION_PICK,
+				ContactsContract.Contacts.CONTENT_URI);
 		mSuspectButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Intent.ACTION_PICK,
-						ContactsContract.Contacts.CONTENT_URI);
-				startActivityForResult(i, REQUEST_CONTACT);
+				startActivityForResult(suspectIntent, REQUEST_CONTACT);
 			}
 		});
+		mSuspectButton.setEnabled(isIntentSafe(suspectIntent));
 		
 		mReportButton = (Button)v.findViewById(R.id.crime_reportButton);
+		Intent reportIntent = new Intent(Intent.ACTION_SEND);
+		reportIntent.setType("text/plain");
+		reportIntent.putExtra(Intent.EXTRA_TEXT, getCrimeReport());
+		reportIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crime_report_subject));
+		final Intent chooserIntent = Intent.createChooser(reportIntent, getString(R.string.send_report));
 		mReportButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Intent.ACTION_SEND);
-				i.setType("text/plain");
-				i.putExtra(Intent.EXTRA_TEXT, getCrimeReport());
-				i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crime_report_subject));
-				i = Intent.createChooser(i, getString(R.string.send_report));
-				startActivity(i);
+				startActivity(chooserIntent);
 			}
 		});
+		mReportButton.setEnabled(isIntentSafe(chooserIntent));
 		
 		return v;
 	}
@@ -308,5 +312,15 @@ public class CrimeFragment extends Fragment {
 				mCrime.getTitle(), dateString, solvedString, suspect);
 		
 		return report;
+	}
+	
+	private boolean isIntentSafe(Intent i) {
+		boolean result = false;
+		
+		PackageManager pm = getActivity().getPackageManager();
+		List<ResolveInfo> activities = pm.queryIntentActivities(i, 0);
+		result = activities.size() > 0;
+		
+		return result;
 	}
 }
