@@ -241,4 +241,7 @@ public class CrimeListFragment extends ListFragment {
 		return v;
 	}
 
+	public void updateUI() {
+		((CrimeAdapter)getListAdapter()).notifyDataSetChanged();
+	}
 }
